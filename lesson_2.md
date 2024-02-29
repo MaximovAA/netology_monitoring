@@ -42,7 +42,19 @@
 - количество свободной оперативной памяти;
 - количество места на файловой системе.
 
-Для решения этого задания приведите promql-запросы для выдачи этих метрик, а также скриншот получившейся Dashboard.
+Для решения этого задания приведите promql-запросы для выдачи этих метрик, а также скриншот получившейся Dashboard.  
+```
+- утилизация CPU для nodeexporter (в процентах, 100-idle)
+sum by(instance) (rate(node_cpu_seconds_total{mode="idle"}[1m])) / on(instance) group_left sum by (instance)((rate(node_cpu_seconds_total[1m])))*100
+- CPULA 1/5/15;
+node_load1
+node_load5
+node_load15
+- количество свободной оперативной памяти
+node_memory_MemAvailable_bytes
+- количество места на файловой системе
+node_filesystem_avail_bytes{device="/dev/sda3", fstype="ext4", instance="nodeexporter:9100", job="nodeexporter", mountpoint="/"}
+```
 
 ![описание](https://github.com/MaximovAA/school/blob/main/mon2-02.jpg)
 ## Задание 3
